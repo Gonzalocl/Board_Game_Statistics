@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Board Game Statistics</string>
+    <string name="undefined_game_name">Undefined game name</string>
+    <string name="undefined_location">Undefined location</string>
 </resources>
