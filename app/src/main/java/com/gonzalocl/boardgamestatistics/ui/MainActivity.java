@@ -1,6 +1,8 @@
 package com.gonzalocl.boardgamestatistics.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +33,26 @@ public class MainActivity extends AppCompatActivity {
         final PlayerList players = new PlayerList(ps);
         playerList.setAdapter(players);
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                return makeMovementFlags(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                players.deletePlayer(viewHolder.getAdapterPosition());
+            }
+
+        });
+
+        itemTouchHelper.attachToRecyclerView(playerList);
+
         final UiEvents uiEvents = UiEvents.getUiEvents();
 
         FloatingActionButton buttonStart = findViewById(R.id.button_start);
@@ -38,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uiEvents.start();
-                players.deletePlayer(0);
             }
         });
 
