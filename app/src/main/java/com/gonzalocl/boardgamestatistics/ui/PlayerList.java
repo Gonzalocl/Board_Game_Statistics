@@ -1,4 +1,4 @@
-package com.gonzalocl.boardgamestatistics.app;
+package com.gonzalocl.boardgamestatistics.ui;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gonzalocl.boardgamestatistics.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

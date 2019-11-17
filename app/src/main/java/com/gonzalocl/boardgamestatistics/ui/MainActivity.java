@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.gonzalocl.boardgamestatistics.R;
-import com.gonzalocl.boardgamestatistics.app.PlayerList;
 import com.gonzalocl.boardgamestatistics.app.UiEvents;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
