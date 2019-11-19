@@ -2,4 +2,7 @@
     <string name="app_name">Board Game Statistics</string>
     <string name="undefined_game_name">Undefined game name</string>
     <string name="undefined_location">Undefined location</string>
+    <string name="new_item_add">Add</string>
+    <string name="new_item_name">Name</string>
+    <string name="selection_search">Search</string>
 </resources>
