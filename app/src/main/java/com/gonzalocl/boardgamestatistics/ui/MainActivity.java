@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 uiEvents.addPlayer(0);
                 players.addPlayer(0, String.format("%d", c));
                 c++;
-                SelectionActivity.start(MainActivity.this);
+                SelectionActivity.start(MainActivity.this, UiEvents.SELECTION_TYPE_PLAYER);
             }
         });
 

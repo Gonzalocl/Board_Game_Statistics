@@ -2,6 +2,10 @@ package com.gonzalocl.boardgamestatistics.app;
 
 public class UiEvents {
 
+    public static final int SELECTION_TYPE_PLAYER = 0;
+    public static final int SELECTION_TYPE_GAME = 1;
+    public static final int SELECTION_TYPE_LOCATION = 2;
+    public static final int SELECTION_TYPE_TEAM = 3;
 
     private static final UiEvents uiEvents = new UiEvents();
 

@@ -5,4 +5,7 @@
     <string name="new_item_add">Add</string>
     <string name="new_item_name">Name</string>
     <string name="selection_search">Search</string>
+    <string name="selection_player_title">Select player</string>
+    <string name="selection_player_search">Search player</string>
+    <string name="selection_player_add">New player</string>
 </resources>
