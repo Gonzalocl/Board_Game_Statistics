@@ -7,6 +7,8 @@ import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gonzalocl.boardgamestatistics.R;
 import com.gonzalocl.boardgamestatistics.app.UiEvents;
@@ -29,18 +31,33 @@ public class SelectionActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int selectionType = intent.getIntExtra(KEY_SELECTION_TYPE, -1);
+        SuggestionsList suggestionsList;
+        UiEvents uiEvents = UiEvents.getUiEvents();
 
         if (selectionType == UiEvents.SELECTION_TYPE_PLAYER) {
             setTitle(R.string.selection_player_title);
             ((EditText)findViewById(R.id.selection_search)).setHint(R.string.selection_player_search);
             ((EditText)findViewById(R.id.new_item_name)).setHint(R.string.selection_player_add);
+            suggestionsList = new SuggestionsList(uiEvents.getSuggestedPlayers());
         } else if (selectionType == UiEvents.SELECTION_TYPE_GAME) {
             // TODO set strings
+            suggestionsList = new SuggestionsList(uiEvents.getSuggestedGameNames());
         } else if (selectionType == UiEvents.SELECTION_TYPE_LOCATION) {
             // TODO set strings
+            suggestionsList = new SuggestionsList(uiEvents.getSuggestedLocations());
         } else if (selectionType == UiEvents.SELECTION_TYPE_TEAM) {
             // TODO set strings
+            suggestionsList = new SuggestionsList(uiEvents.getSuggestedTeams());
+        } else {
+            suggestionsList = new SuggestionsList(new String[0]);
         }
+
+        RecyclerView suggestionsListView = findViewById(R.id.selection_list);
+        suggestionsListView.setHasFixedSize(true);
+        suggestionsListView.setLayoutManager(new LinearLayoutManager(this));
+        suggestionsListView.setAdapter(suggestionsList);
+
+
 
 
 

@@ -34,7 +34,7 @@ public class PlayerList extends RecyclerView.Adapter<PlayerList.PlayerView> {
     @Override
     public PlayerView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         TextView view = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.player_view, parent, false);
+                .inflate(R.layout.view_item, parent, false);
         return new PlayerView(view);
     }
 

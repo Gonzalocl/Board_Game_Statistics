@@ -46,7 +46,7 @@ public class UiEvents {
     }
 
     public String[] getSuggestedPlayers() {
-        return null;
+        return new String[] {"one", "two", "three"};
     }
 
     public String[] getSuggestedGameNames() {
@@ -54,6 +54,10 @@ public class UiEvents {
     }
 
     public String[] getSuggestedLocations() {
+        return null;
+    }
+
+    public String[] getSuggestedTeams() {
         return null;
     }
 
