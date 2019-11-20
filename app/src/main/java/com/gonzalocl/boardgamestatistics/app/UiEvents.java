@@ -1,5 +1,7 @@
 package com.gonzalocl.boardgamestatistics.app;
 
+import com.gonzalocl.boardgamestatistics.db.SuggestionDB;
+
 public class UiEvents {
 
     public static final int SELECTION_TYPE_PLAYER = 0;
@@ -45,8 +47,14 @@ public class UiEvents {
 
     }
 
+    static SuggestionDB sdb = new SuggestionDB("", "");
+
+    public void newPlayer(String player) {
+        sdb.add(player);
+    }
+
     public String[] getSuggestedPlayers() {
-        return new String[] {"one", "two", "three"};
+        return sdb.getItems();
     }
 
     public String[] getSuggestedGameNames() {

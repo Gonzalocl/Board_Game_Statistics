@@ -3,7 +3,10 @@ package com.gonzalocl.boardgamestatistics.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +42,12 @@ public class SelectionActivity extends AppCompatActivity {
             ((EditText)findViewById(R.id.selection_search)).setHint(R.string.selection_player_search);
             ((EditText)findViewById(R.id.new_item_name)).setHint(R.string.selection_player_add);
             suggestionsList = new SuggestionsList(uiEvents.getSuggestedPlayers());
+            suggestionsList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UiEvents.getUiEvents().newPlayer(((TextView)v).getText().toString());
+                }
+            });
         } else if (selectionType == UiEvents.SELECTION_TYPE_GAME) {
             // TODO set strings
             suggestionsList = new SuggestionsList(uiEvents.getSuggestedGameNames());
@@ -58,7 +67,14 @@ public class SelectionActivity extends AppCompatActivity {
         suggestionsListView.setAdapter(suggestionsList);
 
 
-
+        Button newItem = findViewById(R.id.new_item_add);
+        newItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText newItemName = findViewById(R.id.new_item_name);
+                UiEvents.getUiEvents().newPlayer(newItemName.getText().toString());
+            }
+        });
 
 
     }
