@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager playerListManager = new LinearLayoutManager(this);
         playerList.setLayoutManager(playerListManager);
 
-        String[] ps = {"uno", "dos", "tres", "four", "five", "six", "seven", "ocho", "nueve", "diez"};
-        final PlayerList players = new PlayerList(ps);
+        final PlayerList players = new PlayerList(uiEvents.getCurrentPlayers());
         playerList.setAdapter(players);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
@@ -52,8 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                players.deletePlayer(viewHolder.getAdapterPosition());
-                uiEvents.deletePlayer(viewHolder.getAdapterPosition());
+                int position = viewHolder.getAdapterPosition();
+                players.deletePlayer(position);
+                uiEvents.deletePlayer(position);
             }
 
         });

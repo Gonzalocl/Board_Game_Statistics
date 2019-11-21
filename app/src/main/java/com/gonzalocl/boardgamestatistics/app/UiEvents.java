@@ -2,6 +2,8 @@ package com.gonzalocl.boardgamestatistics.app;
 
 import com.gonzalocl.boardgamestatistics.db.SuggestionDB;
 
+import java.util.ArrayList;
+
 public class UiEvents {
 
     public static final int SELECTION_TYPE_PLAYER = 0;
@@ -27,20 +29,23 @@ public class UiEvents {
 
     }
 
-//    public String[] getCurrentPlayers() {
-//
-//    }
+    static ArrayList<String> tmp = new ArrayList<>();
+    static String[] activeSuggestions;
+    public String[] getCurrentPlayers() {
+        String[] ret = new String[tmp.size()];
+        return tmp.toArray(ret);
+    }
 
     public void addPlayer(int i) {
-
+        tmp.add(activeSuggestions[i]);
     }
 
     public void deletePlayer(int i) {
-
+        tmp.remove(i);
     }
 
     public void clearPlayerList() {
-
+        tmp = new ArrayList<>();
     }
 
     public void setGameName(int i) {
@@ -55,9 +60,11 @@ public class UiEvents {
 
     public void newPlayer(String player) {
         sdb.add(player);
+        tmp.add(player);
     }
 
     public String[] getSuggestedPlayers() {
+        activeSuggestions = sdb.getItems();
         return sdb.getItems();
     }
 
