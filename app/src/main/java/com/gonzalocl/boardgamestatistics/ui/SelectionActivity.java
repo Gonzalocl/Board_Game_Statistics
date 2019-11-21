@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,17 +34,18 @@ public class SelectionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int selectionType = intent.getIntExtra(KEY_SELECTION_TYPE, -1);
         SuggestionsList suggestionsList;
-        UiEvents uiEvents = UiEvents.getUiEvents();
+        final UiEvents uiEvents = UiEvents.getUiEvents();
 
         if (selectionType == UiEvents.SELECTION_TYPE_PLAYER) {
             setTitle(R.string.selection_player_title);
             ((EditText)findViewById(R.id.selection_search)).setHint(R.string.selection_player_search);
             ((EditText)findViewById(R.id.new_item_name)).setHint(R.string.selection_player_add);
             suggestionsList = new SuggestionsList(uiEvents.getSuggestedPlayers());
-            suggestionsList.setOnClickListener(new View.OnClickListener() {
+            suggestionsList.setOnClickListener(new SuggestionsList.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    UiEvents.getUiEvents().newPlayer(((TextView)v).getText().toString());
+                public void onClick(int position) {
+                    uiEvents.addPlayer(position);
+                    MainActivity.star(SelectionActivity.this);
                 }
             });
         } else if (selectionType == UiEvents.SELECTION_TYPE_GAME) {
@@ -73,6 +73,7 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText newItemName = findViewById(R.id.new_item_name);
                 UiEvents.getUiEvents().newPlayer(newItemName.getText().toString());
+                MainActivity.star(SelectionActivity.this);
             }
         });
 

@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gonzalocl.boardgamestatistics.R;
-import com.gonzalocl.boardgamestatistics.app.UiEvents;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +17,7 @@ import java.util.List;
 public class SuggestionsList extends RecyclerView.Adapter<SuggestionsList.ItemView> {
 
     private List<String> items;
-    private View.OnClickListener onClickListener;
+    private SuggestionsList.OnClickListener onClickListener;
 
     static class ItemView extends RecyclerView.ViewHolder {
         private TextView itemView;
@@ -26,6 +25,10 @@ public class SuggestionsList extends RecyclerView.Adapter<SuggestionsList.ItemVi
             super(itemView);
             this.itemView = itemView;
         }
+    }
+
+    public interface OnClickListener {
+        void onClick(int position);
     }
 
     public SuggestionsList(String[] items) {
@@ -42,9 +45,14 @@ public class SuggestionsList extends RecyclerView.Adapter<SuggestionsList.ItemVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemView holder, int position) {
+    public void onBindViewHolder(@NonNull ItemView holder, final int position) {
         holder.itemView.setText(items.get(position));
-        holder.itemView.setOnClickListener(onClickListener);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.onClick(position);
+            }
+        });
     }
 
     @Override
@@ -52,7 +60,7 @@ public class SuggestionsList extends RecyclerView.Adapter<SuggestionsList.ItemVi
         return items.size();
     }
 
-    public void setOnClickListener(View.OnClickListener onClickListener) {
+    public void setOnClickListener(SuggestionsList.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 

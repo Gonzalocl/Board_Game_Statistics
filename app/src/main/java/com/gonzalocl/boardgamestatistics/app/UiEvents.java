@@ -27,6 +27,10 @@ public class UiEvents {
 
     }
 
+//    public String[] getCurrentPlayers() {
+//
+//    }
+
     public void addPlayer(int i) {
 
     }
