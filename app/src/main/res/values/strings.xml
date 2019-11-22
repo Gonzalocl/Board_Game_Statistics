@@ -8,4 +8,5 @@
     <string name="selection_player_title">Select player</string>
     <string name="selection_player_search">Search player</string>
     <string name="selection_player_add">New player</string>
+    <string name="status_service_description">This service keeps the state of the current game whit a notification with a timer and info.</string>
 </resources>

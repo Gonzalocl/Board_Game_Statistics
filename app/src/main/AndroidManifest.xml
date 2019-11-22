@@ -17,6 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.SelectionActivity" />
+
+        <service android:name=".app.StatusService"
+            android:exported="false"
+            android:description="@string/status_service_description"/>
     </application>
 
 </manifest>
