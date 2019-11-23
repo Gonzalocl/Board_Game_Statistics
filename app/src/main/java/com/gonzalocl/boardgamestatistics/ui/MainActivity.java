@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
 import com.gonzalocl.boardgamestatistics.R;
+import com.gonzalocl.boardgamestatistics.app.StatusService;
 import com.gonzalocl.boardgamestatistics.app.UiEvents;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -66,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uiEvents.start();
+                Intent statusService = new Intent(MainActivity.this, StatusService.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(statusService);
+                } else {
+                    // TODO test this
+                    startService(statusService);
+                }
             }
         });
 
