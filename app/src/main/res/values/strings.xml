@@ -9,4 +9,6 @@
     <string name="selection_player_search">Search player</string>
     <string name="selection_player_add">New player</string>
     <string name="status_service_description">This service keeps the state of the current game whit a notification with a timer and info.</string>
+    <string name="status_notification_channel_name">Board Game Statistics</string>
+    <string name="status_notification_channel_description">Board Game Statistics: status notification channel</string>
 </resources>
