@@ -2,6 +2,7 @@ package com.gonzalocl.boardgamestatistics.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,12 +11,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.gonzalocl.boardgamestatistics.R;
 import com.gonzalocl.boardgamestatistics.app.StatusService;
 import com.gonzalocl.boardgamestatistics.app.UiEvents;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // TODO: idk
+        Toolbar myToolbar = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            myToolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(myToolbar);
+        }
 
         final UiEvents uiEvents = UiEvents.getUiEvents();
 
@@ -63,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(playerList);
 
 
-        FloatingActionButton buttonStart = findViewById(R.id.button_start);
+        ImageButton buttonStart = findViewById(R.id.button_start);
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        FloatingActionButton addPlayer = findViewById(R.id.add_player);
+        ImageButton addPlayer = findViewById(R.id.add_player);
         addPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton clearPlayerList = findViewById(R.id.clear_player_list);
+        ImageButton clearPlayerList = findViewById(R.id.clear_player_list);
         clearPlayerList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,4 +108,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    // App bar buttons
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // TODO: Create new activity with settings
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 }

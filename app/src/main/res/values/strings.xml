@@ -11,4 +11,8 @@
     <string name="status_service_description">This service keeps the state of the current game whit a notification with a timer and info.</string>
     <string name="status_notification_channel_name">Board Game Statistics</string>
     <string name="status_notification_channel_description">Board Game Statistics: status notification channel</string>
+
+    <string name="button_start">Start game</string>
+    <string name="button_add_player">Add player</string>
+    <string name="button_clear_player_list">Clear player list</string>
 </resources>

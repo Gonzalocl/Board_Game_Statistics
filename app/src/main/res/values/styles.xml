@@ -1,11 +1,64 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorForeground</item>
-        <item name="colorPrimaryDark">@color/colorBackground</item>
-        <item name="colorAccent">@color/colorItem</item>
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:imageButtonStyle">@style/Widget.Button.Dark</item>
+        <item name="imageButtonStyle">@style/Widget.Button.Dark</item>
+        <item name="recyclerViewStyle">@style/RecyclerViewDark</item>
+        <item name="android:textViewStyle">@style/TextViewDark</item>
+        <item name="android:editTextStyle">@style/EditTextDark</item>
+        <item name="editTextStyle">@style/EditTextDark</item>
+        <item name="toolbarStyle">@style/ToolbarDark</item>
+
+        <item name="android:background">@color/colorBackgroundDark</item>
+        <item name="android:textColor">@color/colorTextDark</item>
+        <item name="android:textColorHint">@color/colorTextHintDark</item>
+    </style>
+
+    <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="background">@color/colorBackgroundLight</item>
+        <item name="colorPrimary">@color/colorForegroundLight</item>
+        <item name="colorPrimaryDark">@color/colorBackgroundLight</item>
+        <item name="colorAccent">@color/colorItemLight</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textColorHint">@color/colorTextHintLight</item>
+        <item name="fontFamily">sans-serif-light</item>
+    </style>
+
+    <!-- DARK STYLES -->
+    <style name="Widget.Button.Dark" parent="Widget.AppCompat.Button">
+        <item name="android:tint">@color/colorBackgroundDark</item>
+        <item name="android:background">@drawable/circle_dark</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="RecyclerViewDark">
+        <item name="android:background">@color/colorForegroundDark</item>
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+        <item name="android:orientation">vertical</item>
+        <item name="spanCount">2</item>
+    </style>
+
+    <style name="TextViewDark" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:background">@color/colorForegroundDark</item>
+        <item name="android:textColor">@color/colorTextDark</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="EditTextDark" parent="Widget.AppCompat.EditText">
+        <item name="backgroundTint">@color/colorItemDark</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ToolbarDark" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/colorItemDark</item>
+        <item name="fontFamily">sans-serif-light</item>
+
+        <item name="android:textColorHighlight">@color/colorTextDark</item>
+        <item name="android:textColorHint">@color/colorTextDark</item>
+        <item name="android:textColorLink">@color/colorTextDark</item>
+        <item name="titleTextColor">@color/colorTextDark</item>
     </style>
 
 </resources>
