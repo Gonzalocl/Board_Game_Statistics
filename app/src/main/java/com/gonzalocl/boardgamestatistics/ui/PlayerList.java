@@ -1,5 +1,7 @@
 package com.gonzalocl.boardgamestatistics.ui;
 
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ public class PlayerList extends RecyclerView.Adapter<PlayerList.PlayerView> {
     public PlayerView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         TextView view = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.view_item, parent, false);
+        view.setTextColor(0xFFFFFFFF); // Very tricky
         return new PlayerView(view);
     }
 

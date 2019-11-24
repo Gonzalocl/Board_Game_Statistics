@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".ui.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,6 +13,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@color/colorForeground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/location_text"
         app:layout_constraintStart_toStartOf="@+id/location_text"
@@ -23,29 +24,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
+        android:tint="@color/colorBackground"
+        app:backgroundTint="@color/colorItem"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/button_start"
+        app:srcCompat="@drawable/plus_circle" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/clear_player_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="12dp"
+        android:tint="@color/colorBackground"
+        app:backgroundTint="@color/colorItem"
         app:layout_constraintBottom_toTopOf="@+id/add_player"
         app:layout_constraintEnd_toEndOf="@+id/add_player"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        app:srcCompat="@drawable/delete" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:tint="@color/colorBackground"
+        app:backgroundTint="@color/colorItem"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        app:srcCompat="@drawable/play" />
 
     <TextView
         android:id="@+id/game_name_text"
@@ -55,7 +64,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/rounded_corner"
+        android:fontFamily="sans-serif-light"
         android:text="@string/undefined_game_name"
+        android:textColor="@color/colorText"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +78,9 @@
         android:layout_height="29dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_corner"
+        android:fontFamily="sans-serif-light"
         android:text="@string/undefined_location"
+        android:textColor="@color/colorText"
         app:layout_constraintEnd_toEndOf="@+id/game_name_text"
         app:layout_constraintStart_toStartOf="@+id/game_name_text"
         app:layout_constraintTop_toBottomOf="@+id/game_name_text" />
