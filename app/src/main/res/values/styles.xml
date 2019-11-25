@@ -2,13 +2,14 @@
 
     <!-- Base application theme. -->
     <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="toolbarStyle">@style/ToolbarDark</item>
         <item name="android:imageButtonStyle">@style/Widget.Button.Dark</item>
         <item name="imageButtonStyle">@style/Widget.Button.Dark</item>
         <item name="recyclerViewStyle">@style/RecyclerViewDark</item>
         <item name="android:textViewStyle">@style/TextViewDark</item>
-        <item name="android:editTextStyle">@style/EditTextDark</item>
         <item name="editTextStyle">@style/EditTextDark</item>
-        <item name="toolbarStyle">@style/ToolbarDark</item>
+        <item name="android:actionBarItemBackground">@drawable/actionbar_is_bugged_dark</item>
+        <item name="actionBarItemBackground">@drawable/actionbar_is_bugged_dark</item>
 
         <item name="android:background">@color/colorBackgroundDark</item>
         <item name="android:textColor">@color/colorTextDark</item>
@@ -40,7 +41,7 @@
     </style>
 
     <style name="TextViewDark" parent="@android:style/TextAppearance.Widget.TextView">
-        <item name="android:background">@color/colorForegroundDark</item>
+        <item name="android:background">#00FFFFFF</item>
         <item name="android:textColor">@color/colorTextDark</item>
         <item name="android:textStyle">normal</item>
         <item name="fontFamily">sans-serif-light</item>
@@ -53,12 +54,8 @@
 
     <style name="ToolbarDark" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@color/colorItemDark</item>
-        <item name="fontFamily">sans-serif-light</item>
-
-        <item name="android:textColorHighlight">@color/colorTextDark</item>
-        <item name="android:textColorHint">@color/colorTextDark</item>
-        <item name="android:textColorLink">@color/colorTextDark</item>
-        <item name="titleTextColor">@color/colorTextDark</item>
+        <item name="fontFamily">sans-serif-condensed-light</item>
+        <item name="titleTextColor">@color/colorBackgroundDark</item>
     </style>
 
 </resources>

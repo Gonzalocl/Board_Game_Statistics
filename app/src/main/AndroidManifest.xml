@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.SelectionActivity" />
+        <activity android:name=".ui.SettingsActivity" />
 
         <service android:name=".app.StatusService"
             android:exported="false"

@@ -25,7 +25,6 @@ public class SelectionActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,5 +77,16 @@ public class SelectionActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(SettingsActivity.reloadTheme) {
+            SettingsActivity.reloadTheme = false;
+            Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
     }
 }

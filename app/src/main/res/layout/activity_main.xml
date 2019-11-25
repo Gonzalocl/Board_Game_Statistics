@@ -71,7 +71,6 @@
         android:layout_width="0dp"
         android:layout_height="29dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_corner_dark"
         android:fontFamily="sans-serif-light"
         android:text="@string/undefined_location"
         app:layout_constraintEnd_toEndOf="@+id/game_name_text"
@@ -82,11 +81,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="hola"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
