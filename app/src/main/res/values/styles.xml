@@ -1,15 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="toolbarStyle">@style/ToolbarDark</item>
         <item name="android:imageButtonStyle">@style/Widget.Button.Dark</item>
-        <item name="imageButtonStyle">@style/Widget.Button.Dark</item>
+        <item name="imageButtonStyle">@style/Widget.ImageButton.Dark</item>
+        <item name="buttonStyle">@style/Widget.Button.Dark</item>
         <item name="recyclerViewStyle">@style/RecyclerViewDark</item>
         <item name="android:textViewStyle">@style/TextViewDark</item>
         <item name="editTextStyle">@style/EditTextDark</item>
         <item name="android:actionBarItemBackground">@drawable/actionbar_is_bugged_dark</item>
         <item name="actionBarItemBackground">@drawable/actionbar_is_bugged_dark</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorItemDark</item>
 
         <item name="android:background">@color/colorBackgroundDark</item>
         <item name="android:textColor">@color/colorTextDark</item>
@@ -17,31 +19,44 @@
     </style>
 
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="background">@color/colorBackgroundLight</item>
-        <item name="colorPrimary">@color/colorForegroundLight</item>
-        <item name="colorPrimaryDark">@color/colorBackgroundLight</item>
-        <item name="colorAccent">@color/colorItemLight</item>
+        <item name="toolbarStyle">@style/ToolbarLight</item>
+        <item name="android:imageButtonStyle">@style/Widget.Button.Light</item>
+        <item name="imageButtonStyle">@style/Widget.ImageButton.Light</item>
+        <item name="buttonStyle">@style/Widget.Button.Light</item>
+        <item name="recyclerViewStyle">@style/RecyclerViewLight</item>
+        <item name="android:textViewStyle">@style/TextViewLight</item>
+        <item name="editTextStyle">@style/EditTextLight</item>
+        <item name="android:actionBarItemBackground">@drawable/actionbar_is_bugged_light</item>
+        <item name="actionBarItemBackground">@drawable/actionbar_is_bugged_light</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/colorItemLight</item>
+
+        <item name="android:background">@color/colorBackgroundLight</item>
         <item name="android:textColor">@color/colorTextLight</item>
         <item name="android:textColorHint">@color/colorTextHintLight</item>
-        <item name="fontFamily">sans-serif-light</item>
     </style>
 
     <!-- DARK STYLES -->
-    <style name="Widget.Button.Dark" parent="Widget.AppCompat.Button">
+    <style name="Widget.ImageButton.Dark" parent="Widget.AppCompat.Button">
         <item name="android:tint">@color/colorBackgroundDark</item>
         <item name="android:background">@drawable/circle_dark</item>
         <item name="android:scaleType">center</item>
     </style>
 
+    <style name="Widget.Button.Dark" parent="Widget.AppCompat.Button">
+        <item name="android:tint">@color/colorBackgroundDark</item>
+        <item name="android:background">@drawable/rounded_corner_dark</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
     <style name="RecyclerViewDark">
-        <item name="android:background">@color/colorForegroundDark</item>
+        <item name="android:background">@color/colorBackgroundDark</item>
         <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
         <item name="android:orientation">vertical</item>
         <item name="spanCount">2</item>
     </style>
 
     <style name="TextViewDark" parent="@android:style/TextAppearance.Widget.TextView">
-        <item name="android:background">#00FFFFFF</item>
+        <item name="android:background">@color/transparent</item>
         <item name="android:textColor">@color/colorTextDark</item>
         <item name="android:textStyle">normal</item>
         <item name="fontFamily">sans-serif-light</item>
@@ -56,6 +71,45 @@
         <item name="android:background">@color/colorItemDark</item>
         <item name="fontFamily">sans-serif-condensed-light</item>
         <item name="titleTextColor">@color/colorBackgroundDark</item>
+    </style>
+
+    <!-- LIGHT STYLES -->
+    <style name="Widget.ImageButton.Light" parent="Widget.AppCompat.Button">
+        <item name="android:tint">@color/colorBackgroundLight</item>
+        <item name="android:background">@drawable/circle_light</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="Widget.Button.Light" parent="Widget.AppCompat.Button">
+        <item name="android:tint">@color/colorItemLight</item>
+        <item name="android:textColor">@color/colorBackgroundLight</item>
+        <item name="android:background">@drawable/rounded_corner_light</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="RecyclerViewLight">
+        <item name="android:background">@color/colorForegroundLight</item>
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+        <item name="android:orientation">vertical</item>
+        <item name="spanCount">2</item>
+    </style>
+
+    <style name="TextViewLight" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="EditTextLight" parent="Widget.AppCompat.EditText">
+        <item name="backgroundTint">@color/colorItemLight</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ToolbarLight" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/colorItemLight</item>
+        <item name="fontFamily">sans-serif-condensed-light</item>
+        <item name="titleTextColor">@color/colorBackgroundLight</item>
     </style>
 
 </resources>

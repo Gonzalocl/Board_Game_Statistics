@@ -41,9 +41,8 @@
         android:id="@+id/new_item_add"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:background="@drawable/rounded_corner_dark"
-        android:text="@string/new_item_add"
         android:fontFamily="sans-serif-bold"
+        android:text="@string/new_item_add"
         app:layout_constraintEnd_toEndOf="@+id/selection_search"
         app:layout_constraintTop_toTopOf="@+id/new_item_name" />
 
