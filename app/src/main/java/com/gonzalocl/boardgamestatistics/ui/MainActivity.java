@@ -20,7 +20,7 @@ import android.widget.ImageButton;
 
 import com.gonzalocl.boardgamestatistics.R;
 import com.gonzalocl.boardgamestatistics.app.StatusService;
-import com.gonzalocl.boardgamestatistics.app.UiEvents;
+import com.gonzalocl.boardgamestatistics.app.BoardGameStatistics;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             setSupportActionBar(myToolbar);
         }
 
-        final UiEvents uiEvents = UiEvents.getUiEvents();
+        final BoardGameStatistics boardGameStatistics = BoardGameStatistics.getBoardGameStatistics();
 
         final RecyclerView playerList = findViewById(R.id.player_list);
         playerList.setHasFixedSize(true);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager playerListManager = new LinearLayoutManager(this);
         playerList.setLayoutManager(playerListManager);
 
-        final PlayerList players = new PlayerList(uiEvents.getCurrentPlayers());
+        final PlayerList players = new PlayerList(boardGameStatistics.getCurrentPlayers());
         playerList.setAdapter(players);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 players.deletePlayer(position);
-                uiEvents.deletePlayer(position);
+                boardGameStatistics.deletePlayer(position);
             }
 
         });
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uiEvents.start();
+                boardGameStatistics.start();
                 Intent statusService = new Intent(MainActivity.this, StatusService.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     startForegroundService(statusService);
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         addPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SelectionActivity.start(MainActivity.this, UiEvents.SELECTION_TYPE_PLAYER);
+                SelectionActivity.start(MainActivity.this, BoardGameStatistics.SELECTION_TYPE_PLAYER);
             }
         });
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         clearPlayerList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uiEvents.clearPlayerList();
+                boardGameStatistics.clearPlayerList();
                 players.clearPlayers();
             }
         });

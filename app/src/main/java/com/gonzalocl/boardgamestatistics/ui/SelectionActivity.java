@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gonzalocl.boardgamestatistics.R;
-import com.gonzalocl.boardgamestatistics.app.UiEvents;
+import com.gonzalocl.boardgamestatistics.app.BoardGameStatistics;
 
 public class SelectionActivity extends AppCompatActivity {
 
@@ -41,29 +41,29 @@ public class SelectionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int selectionType = intent.getIntExtra(KEY_SELECTION_TYPE, -1);
         SuggestionsList suggestionsList;
-        final UiEvents uiEvents = UiEvents.getUiEvents();
+        final BoardGameStatistics boardGameStatistics = BoardGameStatistics.getBoardGameStatistics();
 
-        if (selectionType == UiEvents.SELECTION_TYPE_PLAYER) {
+        if (selectionType == BoardGameStatistics.SELECTION_TYPE_PLAYER) {
             setTitle(R.string.selection_player_title);
             ((EditText)findViewById(R.id.selection_search)).setHint(R.string.selection_player_search);
             ((EditText)findViewById(R.id.new_item_name)).setHint(R.string.selection_player_add);
-            suggestionsList = new SuggestionsList(uiEvents.getSuggestedPlayers());
+            suggestionsList = new SuggestionsList(boardGameStatistics.getSuggestedPlayers());
             suggestionsList.setOnClickListener(new SuggestionsList.OnClickListener() {
                 @Override
                 public void onClick(int position) {
-                    uiEvents.addPlayer(position);
+                    boardGameStatistics.addPlayer(position);
                     MainActivity.star(SelectionActivity.this);
                 }
             });
-        } else if (selectionType == UiEvents.SELECTION_TYPE_GAME) {
+        } else if (selectionType == BoardGameStatistics.SELECTION_TYPE_GAME) {
             // TODO set strings
-            suggestionsList = new SuggestionsList(uiEvents.getSuggestedGameNames());
-        } else if (selectionType == UiEvents.SELECTION_TYPE_LOCATION) {
+            suggestionsList = new SuggestionsList(boardGameStatistics.getSuggestedGameNames());
+        } else if (selectionType == BoardGameStatistics.SELECTION_TYPE_LOCATION) {
             // TODO set strings
-            suggestionsList = new SuggestionsList(uiEvents.getSuggestedLocations());
-        } else if (selectionType == UiEvents.SELECTION_TYPE_TEAM) {
+            suggestionsList = new SuggestionsList(boardGameStatistics.getSuggestedLocations());
+        } else if (selectionType == BoardGameStatistics.SELECTION_TYPE_TEAM) {
             // TODO set strings
-            suggestionsList = new SuggestionsList(uiEvents.getSuggestedTeams());
+            suggestionsList = new SuggestionsList(boardGameStatistics.getSuggestedTeams());
         } else {
             suggestionsList = new SuggestionsList(new String[0]);
         }
@@ -79,7 +79,7 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText newItemName = findViewById(R.id.new_item_name);
-                UiEvents.getUiEvents().newPlayer(newItemName.getText().toString());
+                BoardGameStatistics.getBoardGameStatistics().newPlayer(newItemName.getText().toString());
                 MainActivity.star(SelectionActivity.this);
             }
         });

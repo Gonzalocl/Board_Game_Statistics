@@ -4,21 +4,21 @@ import com.gonzalocl.boardgamestatistics.db.SuggestionDB;
 
 import java.util.ArrayList;
 
-public class UiEvents {
+public class BoardGameStatistics {
 
     public static final int SELECTION_TYPE_PLAYER = 0;
     public static final int SELECTION_TYPE_GAME = 1;
     public static final int SELECTION_TYPE_LOCATION = 2;
     public static final int SELECTION_TYPE_TEAM = 3;
 
-    private static final UiEvents uiEvents = new UiEvents();
+    private static final BoardGameStatistics boardGameStatistics = new BoardGameStatistics();
 
-    private UiEvents() {
+    private BoardGameStatistics() {
 
     }
 
-    public static UiEvents getUiEvents() {
-        return uiEvents;
+    public static BoardGameStatistics getBoardGameStatistics() {
+        return boardGameStatistics;
     }
 
     public void start() {
