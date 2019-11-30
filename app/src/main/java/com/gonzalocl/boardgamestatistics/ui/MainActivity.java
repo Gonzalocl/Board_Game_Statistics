@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SelectionActivity.start(MainActivity.this);
+//                PlayerSelectionActivity.start(MainActivity.this);
             }
         });
 
