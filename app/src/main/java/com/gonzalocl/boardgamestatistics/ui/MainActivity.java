@@ -48,15 +48,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         final BoardGameStatistics boardGameStatistics = BoardGameStatistics.getBoardGameStatistics();
+        final PlayerList playerList = new PlayerList(boardGameStatistics.getCurrentPlayers());
 
-        final RecyclerView playerList = findViewById(R.id.player_list);
-        playerList.setHasFixedSize(true);
-
-        RecyclerView.LayoutManager playerListManager = new LinearLayoutManager(this);
-        playerList.setLayoutManager(playerListManager);
-
-        final PlayerList players = new PlayerList(boardGameStatistics.getCurrentPlayers());
-        playerList.setAdapter(players);
+        RecyclerView playerListView = findViewById(R.id.player_list);
+        playerListView.setHasFixedSize(true);
+        playerListView.setLayoutManager(new LinearLayoutManager(this));
+        playerListView.setAdapter(playerList);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
@@ -72,13 +69,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-                players.deletePlayer(position);
+                playerList.deletePlayer(position);
                 boardGameStatistics.deletePlayer(position);
             }
 
         });
-
-        itemTouchHelper.attachToRecyclerView(playerList);
+        itemTouchHelper.attachToRecyclerView(playerListView);
 
 
         ImageButton buttonStart = findViewById(R.id.button_start);
@@ -110,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boardGameStatistics.clearPlayerList();
-                players.clearPlayers();
+                playerList.clearPlayers();
             }
         });
 

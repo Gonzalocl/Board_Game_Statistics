@@ -38,6 +38,17 @@ public class SelectionActivity extends AppCompatActivity {
         setTitle(getSelectionTitle());
         ((EditText) findViewById(R.id.selection_search)).setHint(getSearchHint());
         ((EditText) findViewById(R.id.new_item_name)).setHint(getNewItemNameHint());
+
+        Button newItem = findViewById(R.id.new_item_add);
+        newItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText newItemName = findViewById(R.id.new_item_name);
+                onAddNewItem(newItemName.getText().toString());
+                MainActivity.start(SelectionActivity.this);
+            }
+        });
+
         SuggestionsList suggestionsList = new SuggestionsList(getSuggestions());
         suggestionsList.setOnClickListener(new SuggestionsList.OnClickListener() {
             @Override
@@ -51,17 +62,6 @@ public class SelectionActivity extends AppCompatActivity {
         suggestionsListView.setHasFixedSize(true);
         suggestionsListView.setLayoutManager(new LinearLayoutManager(this));
         suggestionsListView.setAdapter(suggestionsList);
-
-
-        Button newItem = findViewById(R.id.new_item_add);
-        newItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText newItemName = findViewById(R.id.new_item_name);
-                onAddNewItem(newItemName.getText().toString());
-                MainActivity.start(SelectionActivity.this);
-            }
-        });
 
 
     }
