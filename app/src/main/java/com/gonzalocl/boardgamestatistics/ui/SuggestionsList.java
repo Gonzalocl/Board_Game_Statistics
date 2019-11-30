@@ -31,8 +31,8 @@ public class SuggestionsList extends RecyclerView.Adapter<SuggestionsList.ItemVi
         void onClick(int position);
     }
 
-    public SuggestionsList(String[] items) {
-        this.items = new ArrayList<String>();
+    SuggestionsList(String[] items) {
+        this.items = new ArrayList<>();
         Collections.addAll(this.items, items);
     }
 
@@ -60,7 +60,7 @@ public class SuggestionsList extends RecyclerView.Adapter<SuggestionsList.ItemVi
         return items.size();
     }
 
-    public void setOnClickListener(SuggestionsList.OnClickListener onClickListener) {
+    void setOnClickListener(SuggestionsList.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 

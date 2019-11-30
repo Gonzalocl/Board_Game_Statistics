@@ -101,8 +101,7 @@ public class MainActivity extends AppCompatActivity {
         addPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SelectionActivity.start(MainActivity.this);
-//                PlayerSelectionActivity.start(MainActivity.this);
+                PlayerSelectionActivity.start(MainActivity.this);
             }
         });
 

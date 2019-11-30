@@ -1,8 +1,7 @@
 package com.gonzalocl.boardgamestatistics.ui;
 
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -18,17 +17,22 @@ import java.util.List;
 public class PlayerList extends RecyclerView.Adapter<PlayerList.PlayerView> {
 
     private List<String> players;
+    private PlayerList.OnClickListener onClickListener;
 
-    public static class PlayerView extends RecyclerView.ViewHolder {
-        public TextView playerName;
-        public PlayerView(TextView view) {
+    static class PlayerView extends RecyclerView.ViewHolder {
+        private TextView playerView;
+        PlayerView(TextView view) {
             super(view);
-            playerName = view;
+            playerView = view;
         }
     }
 
-    public PlayerList(String[] players) {
-        this.players = new ArrayList<String>();
+    public interface OnClickListener {
+        void onClick(int position);
+    }
+
+    PlayerList(String[] players) {
+        this.players = new ArrayList<>();
         Collections.addAll(this.players, players);
     }
 
@@ -42,8 +46,14 @@ public class PlayerList extends RecyclerView.Adapter<PlayerList.PlayerView> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlayerView holder, int position) {
-        holder.playerName.setText(players.get(position));
+    public void onBindViewHolder(@NonNull PlayerView holder, final int position) {
+        holder.playerView.setText(players.get(position));
+        holder.playerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.onClick(position);
+            }
+        });
     }
 
     @Override
@@ -65,6 +75,10 @@ public class PlayerList extends RecyclerView.Adapter<PlayerList.PlayerView> {
         int size = players.size();
         players.clear();
         notifyItemRangeRemoved(0, size);
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 
 }
