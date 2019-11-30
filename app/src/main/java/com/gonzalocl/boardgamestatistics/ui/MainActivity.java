@@ -24,7 +24,7 @@ import com.gonzalocl.boardgamestatistics.app.BoardGameStatistics;
 
 public class MainActivity extends AppCompatActivity {
 
-    static void star(Context context) {
+    static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }

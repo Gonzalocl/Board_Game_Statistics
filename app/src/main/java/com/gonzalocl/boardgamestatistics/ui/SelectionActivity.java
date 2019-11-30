@@ -52,7 +52,7 @@ public class SelectionActivity extends AppCompatActivity {
                 @Override
                 public void onClick(int position) {
                     boardGameStatistics.addPlayer(position);
-                    MainActivity.star(SelectionActivity.this);
+                    MainActivity.start(SelectionActivity.this);
                 }
             });
         } else if (selectionType == BoardGameStatistics.SELECTION_TYPE_GAME) {
@@ -79,8 +79,8 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText newItemName = findViewById(R.id.new_item_name);
-                BoardGameStatistics.getBoardGameStatistics().newPlayer(newItemName.getText().toString());
-                MainActivity.star(SelectionActivity.this);
+                boardGameStatistics.newPlayer(newItemName.getText().toString());
+                MainActivity.start(SelectionActivity.this);
             }
         });
 
