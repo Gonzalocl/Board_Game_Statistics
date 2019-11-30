@@ -15,15 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gonzalocl.boardgamestatistics.R;
-import com.gonzalocl.boardgamestatistics.app.BoardGameStatistics;
 
 public class SelectionActivity extends AppCompatActivity {
 
-    private static final String KEY_SELECTION_TYPE = "selection_type";
 
-    static void start(Context context, int type) {
+    static void start(Context context) {
         Intent intent = new Intent(context, SelectionActivity.class);
-        intent.putExtra(KEY_SELECTION_TYPE, type);
         context.startActivity(intent);
     }
 
@@ -38,35 +35,17 @@ public class SelectionActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_selection);
 
-        Intent intent = getIntent();
-        int selectionType = intent.getIntExtra(KEY_SELECTION_TYPE, -1);
-        SuggestionsList suggestionsList;
-        final BoardGameStatistics boardGameStatistics = BoardGameStatistics.getBoardGameStatistics();
-
-        if (selectionType == BoardGameStatistics.SELECTION_TYPE_PLAYER) {
-            setTitle(R.string.selection_player_title);
-            ((EditText)findViewById(R.id.selection_search)).setHint(R.string.selection_player_search);
-            ((EditText)findViewById(R.id.new_item_name)).setHint(R.string.selection_player_add);
-            suggestionsList = new SuggestionsList(boardGameStatistics.getSuggestedPlayers());
-            suggestionsList.setOnClickListener(new SuggestionsList.OnClickListener() {
-                @Override
-                public void onClick(int position) {
-                    boardGameStatistics.addPlayer(position);
-                    MainActivity.start(SelectionActivity.this);
-                }
-            });
-        } else if (selectionType == BoardGameStatistics.SELECTION_TYPE_GAME) {
-            // TODO set strings
-            suggestionsList = new SuggestionsList(boardGameStatistics.getSuggestedGameNames());
-        } else if (selectionType == BoardGameStatistics.SELECTION_TYPE_LOCATION) {
-            // TODO set strings
-            suggestionsList = new SuggestionsList(boardGameStatistics.getSuggestedLocations());
-        } else if (selectionType == BoardGameStatistics.SELECTION_TYPE_TEAM) {
-            // TODO set strings
-            suggestionsList = new SuggestionsList(boardGameStatistics.getSuggestedTeams());
-        } else {
-            suggestionsList = new SuggestionsList(new String[0]);
-        }
+        setTitle(getSelectionTitle());
+        ((EditText) findViewById(R.id.selection_search)).setHint(getSearchHint());
+        ((EditText) findViewById(R.id.new_item_name)).setHint(getNewItemNameHint());
+        SuggestionsList suggestionsList = new SuggestionsList(getSuggestions());
+        suggestionsList.setOnClickListener(new SuggestionsList.OnClickListener() {
+            @Override
+            public void onClick(int position) {
+                onItemSelected(position);
+                MainActivity.start(SelectionActivity.this);
+            }
+        });
 
         RecyclerView suggestionsListView = findViewById(R.id.selection_list);
         suggestionsListView.setHasFixedSize(true);
@@ -79,7 +58,7 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText newItemName = findViewById(R.id.new_item_name);
-                boardGameStatistics.newPlayer(newItemName.getText().toString());
+                onAddNewItem(newItemName.getText().toString());
                 MainActivity.start(SelectionActivity.this);
             }
         });
@@ -97,4 +76,29 @@ public class SelectionActivity extends AppCompatActivity {
             startActivity(i);
         }
     }
+
+    public int getSelectionTitle(){
+        return R.string.app_name;
+    }
+
+    public int getSearchHint() {
+        return R.string.selection_search;
+    }
+
+    public int getNewItemNameHint() {
+        return R.string.new_item_name;
+    }
+
+    public String[] getSuggestions() {
+        return new String[0];
+    }
+
+    public void onItemSelected(int position) {
+
+    }
+
+    public void onAddNewItem(String item) {
+
+    }
+
 }
