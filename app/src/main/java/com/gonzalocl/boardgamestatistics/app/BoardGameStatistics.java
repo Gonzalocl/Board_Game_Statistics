@@ -13,6 +13,22 @@ public class BoardGameStatistics {
 
     private static final BoardGameStatistics boardGameStatistics = new BoardGameStatistics();
 
+    private String currentGameName;
+    private String currentLocation;
+    private ArrayList<String> currentPlayers = new ArrayList<>();
+    // TODO currentTeams
+
+    private SuggestionDB gameNameSuggestions = new SuggestionDB("", "");
+    private SuggestionDB locationSuggestions = new SuggestionDB("", "");
+    private SuggestionDB playerSuggestions = new SuggestionDB("", "");
+    private SuggestionDB teamSuggestions = new SuggestionDB("", "");
+
+    private String[] activeGameNameSuggestions;
+    private String[] activeLocationSuggestions;
+    private String[] activePlayerSuggestions;
+    private String[] activeTeamSuggestions;
+
+
     private BoardGameStatistics() {
 
     }
@@ -29,55 +45,96 @@ public class BoardGameStatistics {
 
     }
 
-    static ArrayList<String> tmp = new ArrayList<>();
-    static String[] activeSuggestions;
-    public String[] getCurrentPlayers() {
-        String[] ret = new String[tmp.size()];
-        return tmp.toArray(ret);
+    public void setCurrentGameName(int i) {
+        currentGameName = activeGameNameSuggestions[i];
+    }
+
+    public void setCurrentLocation(int i) {
+        currentLocation = activeLocationSuggestions[i];
     }
 
     public void addPlayer(int i) {
-        tmp.add(activeSuggestions[i]);
+        currentPlayers.add(activePlayerSuggestions[i]);
     }
 
+    public void addTeam(int player, int team) {
+        // TODO activeTeamSuggestions[team];
+    }
+
+
+    public String getCurrentGameName() {
+        return currentGameName;
+    }
+
+
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public String[] getCurrentPlayers() {
+        String[] ret = new String[currentPlayers.size()];
+        return currentPlayers.toArray(ret);
+    }
+
+//    public getCurrentTeams()
+
+
+
+
     public void deletePlayer(int i) {
-        tmp.remove(i);
+        currentPlayers.remove(i);
     }
 
     public void clearPlayerList() {
-        tmp = new ArrayList<>();
+        currentPlayers = new ArrayList<>();
     }
 
-    public void setGameName(int i) {
 
+
+
+
+
+
+
+    public void newGameName(String gameName) {
+        gameNameSuggestions.add(gameName);
+        currentGameName = gameName;
     }
 
-    public void setLocation(int i) {
-
+    public void newLocation(String location) {
+        locationSuggestions.add(location);
+        currentLocation = location;
     }
-
-    static SuggestionDB sdb = new SuggestionDB("", "");
 
     public void newPlayer(String player) {
-        sdb.add(player);
-        tmp.add(player);
+        playerSuggestions.add(player);
+        currentPlayers.add(player);
     }
 
-    public String[] getSuggestedPlayers() {
-        activeSuggestions = sdb.getItems();
-        return sdb.getItems();
+    public void newTeam(String team) {
+        teamSuggestions.add(team);
+        // TODO currentTeams
     }
+
 
     public String[] getSuggestedGameNames() {
-        return null;
+        activeGameNameSuggestions = gameNameSuggestions.getItems();
+        return gameNameSuggestions.getItems();
     }
 
     public String[] getSuggestedLocations() {
-        return null;
+        activeLocationSuggestions = locationSuggestions.getItems();
+        return locationSuggestions.getItems();
+    }
+
+    public String[] getSuggestedPlayers() {
+        activePlayerSuggestions = playerSuggestions.getItems();
+        return playerSuggestions.getItems();
     }
 
     public String[] getSuggestedTeams() {
-        return null;
+        activeTeamSuggestions = teamSuggestions.getItems();
+        return teamSuggestions.getItems();
     }
 
 }

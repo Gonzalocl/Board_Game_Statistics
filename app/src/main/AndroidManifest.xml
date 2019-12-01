@@ -21,6 +21,8 @@
         <activity android:name=".ui.SelectionActivity" />
         <activity android:name=".ui.SettingsActivity" />
         <activity android:name=".ui.PlayerSelectionActivity" />
+        <activity android:name=".ui.GameNameSelectionActivity" />
+        <activity android:name=".ui.LocationSelectionActivity" />
 
         <service android:name=".app.StatusService"
             android:exported="false"

@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.gonzalocl.boardgamestatistics.R;
 import com.gonzalocl.boardgamestatistics.app.StatusService;
@@ -49,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
 
         final BoardGameStatistics boardGameStatistics = BoardGameStatistics.getBoardGameStatistics();
         final PlayerList playerList = new PlayerList(boardGameStatistics.getCurrentPlayers());
+        playerList.setOnClickListener(new PlayerList.OnClickListener() {
+            @Override
+            public void onClick(int position) {
+                // TODO select team
+            }
+        });
 
         RecyclerView playerListView = findViewById(R.id.player_list);
         playerListView.setHasFixedSize(true);
@@ -82,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boardGameStatistics.start();
+                // TODO here?
                 Intent statusService = new Intent(MainActivity.this, StatusService.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     startForegroundService(statusService);
@@ -107,6 +115,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boardGameStatistics.clearPlayerList();
                 playerList.clearPlayers();
+            }
+        });
+
+        TextView gameNameView = findViewById(R.id.game_name_text);
+        gameNameView.setText(boardGameStatistics.getCurrentGameName());
+        gameNameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameNameSelectionActivity.start(MainActivity.this);
+            }
+        });
+
+        TextView locationView = findViewById(R.id.location_text);
+        locationView.setText(boardGameStatistics.getCurrentLocation());
+        locationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocationSelectionActivity.start(MainActivity.this);
             }
         });
 
