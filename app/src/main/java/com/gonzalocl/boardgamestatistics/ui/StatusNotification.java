@@ -32,7 +32,6 @@ public class StatusNotification {
         notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(context.getString(R.string.app_name))
-                .setContentText("")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setOnlyAlertOnce(true);
@@ -55,7 +54,8 @@ public class StatusNotification {
     }
 
     public void updateNotification(String text) {
-        notificationBuilder.setContentText(text);
+//        notificationBuilder.setContentText(text);
+        notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
     }
 

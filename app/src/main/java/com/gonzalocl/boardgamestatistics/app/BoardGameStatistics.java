@@ -3,6 +3,7 @@ package com.gonzalocl.boardgamestatistics.app;
 import com.gonzalocl.boardgamestatistics.db.SuggestionDB;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BoardGameStatistics {
 
@@ -14,12 +15,21 @@ public class BoardGameStatistics {
     private static final String UNDEFINED_GAME_NAME = "Undefined game name";
     private static final String UNDEFINED_LOCATION = "Undefined location";
 
+    public static final int STATE_NO_GAME = 1;
+    public static final int STATE_PLAYING = 2;
+    public static final int STATE_ENDING = 3;
+
     private static final BoardGameStatistics boardGameStatistics = new BoardGameStatistics();
+
+    private int currentState;
 
     private String currentGameName;
     private String currentLocation;
     private ArrayList<String> currentPlayers;
     // TODO currentTeams
+
+    private long startTime;
+    private long endTime;
 
     private SuggestionDB gameNameSuggestions;
     private SuggestionDB locationSuggestions;
@@ -33,6 +43,8 @@ public class BoardGameStatistics {
 
 
     private BoardGameStatistics() {
+
+        currentState = STATE_NO_GAME;
 
         currentGameName = UNDEFINED_GAME_NAME;
         currentLocation = UNDEFINED_LOCATION;
@@ -49,13 +61,21 @@ public class BoardGameStatistics {
         return boardGameStatistics;
     }
 
-    public void start() {
 
+    public void start() {
+        currentState = STATE_PLAYING;
+        startTime = new Date().getTime();
     }
 
     public void stop() {
-
+        currentState = STATE_ENDING;
+        endTime = new Date().getTime();
     }
+
+    public void end() {
+        currentState = STATE_NO_GAME;
+    }
+
 
     public void setCurrentGameName(int i) {
         currentGameName = activeGameNameSuggestions[i];
@@ -74,6 +94,10 @@ public class BoardGameStatistics {
     }
 
 
+    public int getCurrentState() {
+        return currentState;
+    }
+
     public String getCurrentGameName() {
         return currentGameName;
     }
@@ -90,7 +114,13 @@ public class BoardGameStatistics {
 
 //    public getCurrentTeams()
 
+    public long getStartTime() {
+        return startTime;
+    }
 
+    public long getEndTime() {
+        return endTime;
+    }
 
 
     public void deletePlayer(int i) {
