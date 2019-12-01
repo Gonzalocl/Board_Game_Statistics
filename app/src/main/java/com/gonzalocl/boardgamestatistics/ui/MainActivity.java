@@ -84,18 +84,42 @@ public class MainActivity extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(playerListView);
 
 
-        ImageButton buttonStart = findViewById(R.id.button_start);
+        final ImageButton buttonStart = findViewById(R.id.button_start);
+        // TODO drawables
+        switch (boardGameStatistics.getCurrentState()) {
+            case BoardGameStatistics.STATE_PLAYING:
+                buttonStart.setImageResource(R.drawable.delete);
+                break;
+            case BoardGameStatistics.STATE_ENDING:
+                buttonStart.setImageResource(R.drawable.plus_circle);
+                break;
+            default:
+                buttonStart.setImageResource(R.drawable.play);
+        }
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardGameStatistics.start();
-                // TODO here?
-                Intent statusService = new Intent(MainActivity.this, StatusService.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    startForegroundService(statusService);
-                } else {
-                    // TODO test this
-                    startService(statusService);
+                switch (boardGameStatistics.getCurrentState()) {
+                    case BoardGameStatistics.STATE_PLAYING:
+                        boardGameStatistics.stop();
+                        buttonStart.setImageResource(R.drawable.plus_circle);
+                        break;
+                    case BoardGameStatistics.STATE_ENDING:
+                        boardGameStatistics.end();
+                        buttonStart.setImageResource(R.drawable.play);
+                        StatusService.confirmResults();
+                        break;
+                    default:
+                        boardGameStatistics.start();
+                        buttonStart.setImageResource(R.drawable.delete);
+                        // TODO here?
+                        Intent statusService = new Intent(MainActivity.this, StatusService.class);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            startForegroundService(statusService);
+                        } else {
+                            // TODO test this
+                            startService(statusService);
+                        }
                 }
             }
         });

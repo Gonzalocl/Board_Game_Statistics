@@ -53,6 +53,7 @@ public class StatusService extends IntentService {
                     seconds,
                     boardGameStatistics.getCurrentLocation(),
                     players);
+
             statusNotification.updateNotification(notificationText);
 
             try {
@@ -63,7 +64,21 @@ public class StatusService extends IntentService {
 
         }
 
-        statusNotification.updateNotification("");
+        long startTime = boardGameStatistics.getStartTime()/1000;
+        long endTime = boardGameStatistics.getEndTime()/1000;
+        long elapsed = endTime-startTime;
+
+        long hours = elapsed/3600%60;
+        long minutes = elapsed/60%60;
+        long seconds = elapsed%60;
+
+        String notificationText = String.format(Locale.getDefault(), getString(R.string.notification_end_format),
+                boardGameStatistics.getCurrentGameName(),
+                hours,
+                minutes,
+                seconds);
+
+        statusNotification.updateNotification(notificationText);
 
         try {
             confirmedResults.acquire();
