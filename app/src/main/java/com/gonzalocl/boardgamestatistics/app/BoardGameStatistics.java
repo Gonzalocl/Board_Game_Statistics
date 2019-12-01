@@ -11,17 +11,20 @@ public class BoardGameStatistics {
     public static final int SELECTION_TYPE_LOCATION = 2;
     public static final int SELECTION_TYPE_TEAM = 3;
 
+    private static final String UNDEFINED_GAME_NAME = "Undefined game name";
+    private static final String UNDEFINED_LOCATION = "Undefined location";
+
     private static final BoardGameStatistics boardGameStatistics = new BoardGameStatistics();
 
     private String currentGameName;
     private String currentLocation;
-    private ArrayList<String> currentPlayers = new ArrayList<>();
+    private ArrayList<String> currentPlayers;
     // TODO currentTeams
 
-    private SuggestionDB gameNameSuggestions = new SuggestionDB("", "");
-    private SuggestionDB locationSuggestions = new SuggestionDB("", "");
-    private SuggestionDB playerSuggestions = new SuggestionDB("", "");
-    private SuggestionDB teamSuggestions = new SuggestionDB("", "");
+    private SuggestionDB gameNameSuggestions;
+    private SuggestionDB locationSuggestions;
+    private SuggestionDB playerSuggestions;
+    private SuggestionDB teamSuggestions;
 
     private String[] activeGameNameSuggestions;
     private String[] activeLocationSuggestions;
@@ -31,6 +34,15 @@ public class BoardGameStatistics {
 
     private BoardGameStatistics() {
 
+        currentGameName = UNDEFINED_GAME_NAME;
+        currentLocation = UNDEFINED_LOCATION;
+        currentPlayers = new ArrayList<>();
+        // TODO currentTeams
+
+        gameNameSuggestions = new SuggestionDB("", "");
+        locationSuggestions = new SuggestionDB("", "");
+        playerSuggestions = new SuggestionDB("", "");
+        teamSuggestions = new SuggestionDB("", "");
     }
 
     public static BoardGameStatistics getBoardGameStatistics() {
