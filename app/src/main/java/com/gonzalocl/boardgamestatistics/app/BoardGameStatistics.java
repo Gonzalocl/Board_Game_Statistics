@@ -76,6 +76,10 @@ public class BoardGameStatistics {
         currentState = STATE_NO_GAME;
     }
 
+    public void discard() {
+        currentState = STATE_NO_GAME;
+    }
+
 
     public void setCurrentGameName(int i) {
         currentGameName = activeGameNameSuggestions[i];

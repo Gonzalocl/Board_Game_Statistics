@@ -30,6 +30,17 @@
         app:srcCompat="@drawable/play" />
 
     <ImageButton
+        android:id="@+id/button_discard"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/button_discard"
+        app:layout_constraintBottom_toBottomOf="@+id/button_start"
+        app:layout_constraintEnd_toStartOf="@+id/button_start"
+        app:layout_constraintTop_toTopOf="@+id/button_start"
+        app:srcCompat="@drawable/delete" />
+
+    <ImageButton
         android:id="@+id/add_player"
         android:layout_width="55dp"
         android:layout_height="55dp"
