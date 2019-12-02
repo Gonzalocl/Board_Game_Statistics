@@ -16,7 +16,7 @@ public class LocationSelectionActivity extends SelectionActivity {
 
     @Override
     public String[] getSuggestions() {
-        return BoardGameStatistics.getBoardGameStatistics().getSuggestedTeams();
+        return BoardGameStatistics.getBoardGameStatistics().getSuggestedLocations();
     }
 
     @Override

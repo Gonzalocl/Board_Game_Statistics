@@ -86,6 +86,8 @@ public class StatusService extends IntentService {
             e.printStackTrace();
         }
 
+        stopSelf();
+
     }
 
     public static void confirmResults() {
