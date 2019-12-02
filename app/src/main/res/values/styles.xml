@@ -112,4 +112,9 @@
         <item name="titleTextColor">@color/colorBackgroundLight</item>
     </style>
 
+    <style name="DiscardConfirmation" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">#000000</item>
+        <item name="android:textColorPrimary">#000000</item>
+    </style>
+
 </resources>

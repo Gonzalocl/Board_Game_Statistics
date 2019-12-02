@@ -1,6 +1,7 @@
 package com.gonzalocl.boardgamestatistics.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -83,18 +85,46 @@ public class MainActivity extends AppCompatActivity {
         });
         itemTouchHelper.attachToRecyclerView(playerListView);
 
-
         final ImageButton buttonStart = findViewById(R.id.button_start);
+        final ImageButton buttonDiscard = findViewById(R.id.button_discard);
+
+        DialogInterface.OnClickListener discardConfirmation = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    boardGameStatistics.discard();
+                    buttonStart.setImageResource(R.drawable.play);
+                    buttonDiscard.setVisibility(View.GONE);
+                    StatusService.confirmResults();
+                }
+            }
+        };
+
+        final AlertDialog.Builder discardConfirmationBuilder = new AlertDialog.Builder(MainActivity.this, R.style.DiscardConfirmation);
+        discardConfirmationBuilder.setMessage(R.string.str_discard_confirmation)
+                .setPositiveButton(R.string.str_yes, discardConfirmation)
+                .setNegativeButton(R.string.str_no, discardConfirmation);
+
+        buttonDiscard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                discardConfirmationBuilder.show();
+            }
+        });
+
         // TODO drawables
         switch (boardGameStatistics.getCurrentState()) {
             case BoardGameStatistics.STATE_PLAYING:
                 buttonStart.setImageResource(R.drawable.delete);
+                buttonDiscard.setVisibility(View.GONE);
                 break;
             case BoardGameStatistics.STATE_ENDING:
                 buttonStart.setImageResource(R.drawable.plus_circle);
+                buttonDiscard.setVisibility(View.VISIBLE);
                 break;
             default:
                 buttonStart.setImageResource(R.drawable.play);
+                buttonDiscard.setVisibility(View.GONE);
         }
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,15 +133,18 @@ public class MainActivity extends AppCompatActivity {
                     case BoardGameStatistics.STATE_PLAYING:
                         boardGameStatistics.stop();
                         buttonStart.setImageResource(R.drawable.plus_circle);
+                        buttonDiscard.setVisibility(View.VISIBLE);
                         break;
                     case BoardGameStatistics.STATE_ENDING:
                         boardGameStatistics.end();
                         buttonStart.setImageResource(R.drawable.play);
+                        buttonDiscard.setVisibility(View.GONE);
                         StatusService.confirmResults();
                         break;
                     default:
                         boardGameStatistics.start();
                         buttonStart.setImageResource(R.drawable.delete);
+                        buttonDiscard.setVisibility(View.GONE);
                         // TODO here?
                         Intent statusService = new Intent(MainActivity.this, StatusService.class);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

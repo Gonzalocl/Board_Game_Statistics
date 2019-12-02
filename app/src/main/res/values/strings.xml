@@ -13,6 +13,9 @@
     <string name="status_notification_channel_description">Board Game Statistics: status notification channel</string>
     <string name="notification_format">Game: %s\nTime: %02d:%02d:%02d\nLocation: %s\nPlayers: %s</string>
     <string name="notification_end_format">Game ended, waiting for results…\nGame: %s\nTime: %02d:%02d:%02d</string>
+    <string name="str_discard_confirmation">Are you sure you want to discard this game?</string>
+    <string name="str_yes">Yes</string>
+    <string name="str_no">No</string>
 
     <string name="button_start">Start game</string>
     <string name="button_add_player">Add player</string>
