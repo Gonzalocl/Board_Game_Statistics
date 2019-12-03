@@ -27,6 +27,7 @@ public class BoardGameStatistics {
     private String currentLocation;
     private ArrayList<String> currentPlayers;
     // TODO currentTeams
+    private String currentDetails;
 
     private long startTime;
     private long endTime;
@@ -50,6 +51,7 @@ public class BoardGameStatistics {
         currentLocation = UNDEFINED_LOCATION;
         currentPlayers = new ArrayList<>();
         // TODO currentTeams
+        currentDetails = "";
 
         gameNameSuggestions = new SuggestionDB("", "");
         locationSuggestions = new SuggestionDB("", "");
@@ -74,6 +76,8 @@ public class BoardGameStatistics {
 
     public void end() {
         currentState = STATE_NO_GAME;
+        setCurrentDetails("");
+        // TODO Log game
     }
 
     public void discard() {
@@ -97,6 +101,9 @@ public class BoardGameStatistics {
         // TODO activeTeamSuggestions[team];
     }
 
+    public void setCurrentDetails(String currentDetails) {
+        this.currentDetails = currentDetails;
+    }
 
     public int getCurrentState() {
         return currentState;
@@ -117,6 +124,11 @@ public class BoardGameStatistics {
     }
 
 //    public getCurrentTeams()
+
+
+    public String getCurrentDetails() {
+        return currentDetails;
+    }
 
     public long getStartTime() {
         return startTime;

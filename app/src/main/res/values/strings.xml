@@ -16,10 +16,13 @@
     <string name="str_discard_confirmation">Are you sure you want to discard this game?</string>
     <string name="str_yes">Yes</string>
     <string name="str_no">No</string>
+    <string name="details_text">Details</string>
 
     <string name="button_start">Start game</string>
     <string name="button_add_player">Add player</string>
     <string name="button_clear_player_list">Clear player list</string>
     <string name="button_discard">Discard current game</string>
+    <string name="button_details">Add details to game</string>
+    <string name="button_clear_details">Clear details field</string>
     <string name="button_settings">Settings</string>
 </resources>

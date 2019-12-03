@@ -194,26 +194,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        View detailsDialog = getLayoutInflater().inflate(R.layout.details_dialog, null);
-        ImageButton detailsDialogClear = detailsDialog.findViewById(R.id.details_clear);
-        final EditText detailsDialogText = detailsDialog.findViewById(R.id.details_text);
-        detailsDialogClear.setOnClickListener(new View.OnClickListener() {
+        ImageButton buttonDetails = findViewById(R.id.button_details);
+        buttonDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detailsDialogText.setText("");
+                showDetailsDialog();
             }
         });
-        AlertDialog.Builder detailsDialogBuilder = new AlertDialog.Builder(this, R.style.DiscardConfirmation);
-        detailsDialogBuilder.setView(detailsDialog);
-        detailsDialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                // TODO
-                detailsDialogText.getText().toString();
-                // TODO clear this field at the beginning of a game
-            }
-        });
-        detailsDialogBuilder.show();
 
     }
 
@@ -253,6 +240,37 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    private void showDetailsDialog() {
+
+        final BoardGameStatistics boardGameStatistics = BoardGameStatistics.getBoardGameStatistics();
+
+        View detailsDialog = getLayoutInflater().inflate(R.layout.details_dialog, null);
+        ImageButton detailsDialogClear = detailsDialog.findViewById(R.id.details_clear);
+        final EditText detailsDialogText = detailsDialog.findViewById(R.id.details_text);
+        AlertDialog.Builder detailsDialogBuilder = new AlertDialog.Builder(this, R.style.DiscardConfirmation);
+
+        detailsDialogClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailsDialogText.setText("");
+            }
+        });
+
+        detailsDialogText.setText(boardGameStatistics.getCurrentDetails());
+
+        detailsDialogBuilder.setView(detailsDialog);
+        detailsDialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                boardGameStatistics.setCurrentDetails(detailsDialogText.getText().toString());
+                // TODO clear this field at the end of a game
+            }
+        });
+
+        detailsDialogBuilder.show();
+
     }
 
 }
