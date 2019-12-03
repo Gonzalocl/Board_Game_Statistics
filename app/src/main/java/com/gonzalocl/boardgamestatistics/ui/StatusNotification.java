@@ -54,7 +54,7 @@ public class StatusNotification {
     }
 
     public void updateNotification(String text) {
-//        notificationBuilder.setContentText(text);
+        notificationBuilder.setContentText(text);
         notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
     }
