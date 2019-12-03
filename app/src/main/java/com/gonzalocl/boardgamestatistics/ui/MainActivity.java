@@ -26,7 +26,14 @@ import com.gonzalocl.boardgamestatistics.R;
 import com.gonzalocl.boardgamestatistics.app.StatusService;
 import com.gonzalocl.boardgamestatistics.app.BoardGameStatistics;
 
+import java.util.Date;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Timer timer;
 
     static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -135,17 +142,20 @@ public class MainActivity extends AppCompatActivity {
                         boardGameStatistics.stop();
                         buttonStart.setImageResource(R.drawable.plus_circle);
                         buttonDiscard.setVisibility(View.VISIBLE);
+                        stopTimer();
                         break;
                     case BoardGameStatistics.STATE_ENDING:
                         boardGameStatistics.end();
                         buttonStart.setImageResource(R.drawable.play);
                         buttonDiscard.setVisibility(View.GONE);
+                        ((TextView) findViewById(R.id.timer_text)).setText(R.string.timer_text_zero);
                         StatusService.confirmResults();
                         break;
                     default:
                         boardGameStatistics.start();
                         buttonStart.setImageResource(R.drawable.delete);
                         buttonDiscard.setVisibility(View.GONE);
+                        startTimer();
                         // TODO here?
                         Intent statusService = new Intent(MainActivity.this, StatusService.class);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -213,6 +223,18 @@ public class MainActivity extends AppCompatActivity {
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         }
+        if (BoardGameStatistics.getBoardGameStatistics().getCurrentState() == BoardGameStatistics.STATE_PLAYING) {
+            startTimer();
+        }
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BoardGameStatistics.getBoardGameStatistics().getCurrentState() == BoardGameStatistics.STATE_PLAYING) {
+            stopTimer();
+        }
     }
 
     @Override
@@ -265,12 +287,48 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancel(DialogInterface dialog) {
                 boardGameStatistics.setCurrentDetails(detailsDialogText.getText().toString());
-                // TODO clear this field at the end of a game
             }
         });
 
         detailsDialogBuilder.show();
 
+    }
+
+    private void startTimer() {
+
+        final TextView timerView = findViewById(R.id.timer_text);
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+
+                long now = new Date().getTime()/1000;
+                long startTime = BoardGameStatistics.getBoardGameStatistics().getStartTime()/1000;
+                long elapsed = now-startTime;
+
+                long hours = elapsed/3600%60;
+                long minutes = elapsed/60%60;
+                long seconds = elapsed%60;
+
+                final String timerText = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        timerView.setText(timerText);
+                    }
+                });
+
+            }
+        };
+
+        timer = new Timer();
+        timer.schedule(task, 0, 1000);
+
+    }
+
+    private void stopTimer() {
+        timer.cancel();
     }
 
 }

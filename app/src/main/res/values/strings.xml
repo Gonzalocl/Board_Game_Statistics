@@ -17,6 +17,7 @@
     <string name="str_yes">Yes</string>
     <string name="str_no">No</string>
     <string name="details_text">Details</string>
+    <string name="timer_text_zero">00:00:00</string>
 
     <string name="button_start">Start game</string>
     <string name="button_add_player">Add player</string>
