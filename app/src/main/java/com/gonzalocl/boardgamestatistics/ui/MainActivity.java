@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         final ImageButton buttonStart = findViewById(R.id.button_start);
         final ImageButton buttonDiscard = findViewById(R.id.button_discard);
 
-        DialogInterface.OnClickListener discardConfirmation = new DialogInterface.OnClickListener() {
+        DialogInterface.OnClickListener discardConfirmationListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == DialogInterface.BUTTON_POSITIVE) {
@@ -100,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        final AlertDialog.Builder discardConfirmationBuilder = new AlertDialog.Builder(MainActivity.this, R.style.DiscardConfirmation);
+        final AlertDialog.Builder discardConfirmationBuilder = new AlertDialog.Builder(this, R.style.DiscardConfirmation);
         discardConfirmationBuilder.setMessage(R.string.str_discard_confirmation)
-                .setPositiveButton(R.string.str_yes, discardConfirmation)
-                .setNegativeButton(R.string.str_no, discardConfirmation);
+                .setPositiveButton(R.string.str_yes, discardConfirmationListener)
+                .setNegativeButton(R.string.str_no, discardConfirmationListener);
 
         buttonDiscard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +193,27 @@ public class MainActivity extends AppCompatActivity {
                 LocationSelectionActivity.start(MainActivity.this);
             }
         });
+
+        View detailsDialog = getLayoutInflater().inflate(R.layout.details_dialog, null);
+        ImageButton detailsDialogClear = detailsDialog.findViewById(R.id.details_clear);
+        final EditText detailsDialogText = detailsDialog.findViewById(R.id.details_text);
+        detailsDialogClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailsDialogText.setText("");
+            }
+        });
+        AlertDialog.Builder detailsDialogBuilder = new AlertDialog.Builder(this, R.style.DiscardConfirmation);
+        detailsDialogBuilder.setView(detailsDialog);
+        detailsDialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                // TODO
+                detailsDialogText.getText().toString();
+                // TODO clear this field at the beginning of a game
+            }
+        });
+        detailsDialogBuilder.show();
 
     }
 
