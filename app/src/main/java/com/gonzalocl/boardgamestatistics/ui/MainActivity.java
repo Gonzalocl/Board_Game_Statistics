@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.dynamicanimation.animation.FloatValueHolder;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,9 +16,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -32,6 +35,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
+
+    // TODO can this be more accurate
+    private static final int DISTANCE = 200;
+
+    // TODO bug when state ending and tap in notification
+    private static FloatValueHolder playerListViewInitialX;
+    private static FloatValueHolder teamListViewViewInitialX;
+    private static FloatValueHolder winnersListViewViewInitialX;
 
     private Timer timer;
 
@@ -67,10 +78,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView playerListView = findViewById(R.id.player_list);
+        final PlayerList teamList = new PlayerList(boardGameStatistics.getCurrentPlayers());
+        teamList.setOnClickListener(new PlayerList.OnClickListener() {
+            @Override
+            public void onClick(int position) {
+                // TODO select team
+            }
+        });
+
+        final PlayerList winnersList = new PlayerList(boardGameStatistics.getCurrentPlayers());
+        winnersList.setOnClickListener(new PlayerList.OnClickListener() {
+            @Override
+            public void onClick(int position) {
+                // TODO set winners
+            }
+        });
+
+        final RecyclerView playerListView = findViewById(R.id.player_list);
+        playerListViewInitialX = new FloatValueHolder(0);
+        setInitialX(playerListView, playerListViewInitialX);
         playerListView.setHasFixedSize(true);
         playerListView.setLayoutManager(new LinearLayoutManager(this));
         playerListView.setAdapter(playerList);
+
+        final RecyclerView teamListView = findViewById(R.id.team_list);
+        teamListViewViewInitialX = new FloatValueHolder(0);
+        setInitialX(teamListView, teamListViewViewInitialX);
+        teamListView.setHasFixedSize(true);
+        teamListView.setLayoutManager(new LinearLayoutManager(this));
+        teamListView.setAdapter(teamList);
+
+        final RecyclerView winnersListView = findViewById(R.id.winners_list);
+        winnersListViewViewInitialX = new FloatValueHolder(0);
+        setInitialX(winnersListView, winnersListViewViewInitialX);
+        winnersListView.setHasFixedSize(true);
+        winnersListView.setLayoutManager(new LinearLayoutManager(this));
+        winnersListView.setAdapter(winnersList);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
@@ -129,6 +172,9 @@ public class MainActivity extends AppCompatActivity {
             case BoardGameStatistics.STATE_ENDING:
                 buttonStart.setImageResource(R.drawable.plus_circle);
                 buttonDiscard.setVisibility(View.VISIBLE);
+                playerListView.setX(playerListView.getX()+DISTANCE);
+                teamListView.setX(teamListView.getX()+DISTANCE);
+                winnersListView.setX(winnersListView.getX()+DISTANCE);
                 break;
             default:
                 buttonStart.setImageResource(R.drawable.play);
@@ -143,12 +189,18 @@ public class MainActivity extends AppCompatActivity {
                         buttonStart.setImageResource(R.drawable.plus_circle);
                         buttonDiscard.setVisibility(View.VISIBLE);
                         stopTimer();
+                        playerListView.animate().x(playerListViewInitialX.getValue()+DISTANCE);
+                        teamListView.animate().x(teamListViewViewInitialX.getValue()+DISTANCE);
+                        winnersListView.animate().x(winnersListViewViewInitialX.getValue()+DISTANCE);
                         break;
                     case BoardGameStatistics.STATE_ENDING:
                         boardGameStatistics.end();
                         buttonStart.setImageResource(R.drawable.play);
                         buttonDiscard.setVisibility(View.GONE);
                         ((TextView) findViewById(R.id.timer_text)).setText(R.string.timer_text_zero);
+                        playerListView.animate().x(playerListViewInitialX.getValue());
+                        teamListView.animate().x(teamListViewViewInitialX.getValue());
+                        winnersListView.animate().x(winnersListViewViewInitialX.getValue());
                         StatusService.confirmResults();
                         break;
                     default:
@@ -329,6 +381,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void stopTimer() {
         timer.cancel();
+    }
+
+    private void setInitialX(final View view, final FloatValueHolder initialX) {
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                initialX.setValue(view.getX());
+                view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
     }
 
 }
